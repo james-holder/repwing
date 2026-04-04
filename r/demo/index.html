@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How was your visit?</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f12;
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 48px;
+      opacity: 0.5;
+    }
+    .logo span { color: #6c63ff; }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 40px 32px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 36px;
+      line-height: 1.2;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .star {
+      font-size: 2.8rem;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+      opacity: 0.35;
+      line-height: 1;
+      user-select: none;
+    }
+    .star:hover, .star.active {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
+    .submit-btn {
+      display: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: none;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-bottom: 12px;
+    }
+    .submit-btn:hover { background: #5a52e0; }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn.visible { display: block; }
+
+    .feedback-form {
+      display: none;
+      text-align: left;
+      margin-top: 8px;
+    }
+    .feedback-form.visible { display: block; }
+
+    .feedback-form p {
+      font-size: 0.95rem;
+      color: #aaa;
+      margin-bottom: 16px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .feedback-form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 100px;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+    .feedback-form textarea:focus { border-color: #6c63ff; }
+    .feedback-form textarea::placeholder { color: #555; }
+
+    .feedback-form input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+    .feedback-form input[type="text"]:focus { border-color: #6c63ff; }
+    .feedback-form input[type="text"]::placeholder { color: #555; }
+
+    .send-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: #6c63ff;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .send-btn:hover { background: #5a52e0; }
+
+    .thankyou {
+      display: none;
+      text-align: center;
+      padding: 16px 0 8px;
+    }
+    .thankyou.visible { display: block; }
+    .thankyou .icon { font-size: 3rem; margin-bottom: 16px; }
+    .thankyou h2 { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .thankyou p { color: #888; font-size: 0.95rem; line-height: 1.6; }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.75rem;
+      color: #333;
+      text-align: center;
+    }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { color: #888; }
+  </style>
+</head>
+<body>
+
+  <div class="logo">Rep<span>Wing</span></div>
+
+  <div class="card">
+
+    <div id="ratingView">
+      <h1>How was your visit?</h1>
+
+      <div class="stars" id="stars">
+        <span class="star" data-val="1">⭐</span>
+        <span class="star" data-val="2">⭐</span>
+        <span class="star" data-val="3">⭐</span>
+        <span class="star" data-val="4">⭐</span>
+        <span class="star" data-val="5">⭐</span>
+      </div>
+
+      <button class="submit-btn" id="googleBtn" onclick="goToGoogle()">
+        ⭐ Leave a Google Review
+      </button>
+
+      <form
+        class="feedback-form"
+        id="feedbackForm"
+        action="https://formspree.io/f/xnjoqjdg"
+        method="POST"
+        onsubmit="handleFeedback(event)"
+      >
+        <p>We're sorry to hear that. Tell us what happened and we'll make it right.</p>
+        <input type="hidden" name="business" value="Demo" />
+        <input type="hidden" name="rating" id="hiddenRating" value="" />
+        <input type="text" name="name" placeholder="Your name (optional)" />
+        <textarea name="feedback" placeholder="What could we do better?" required></textarea>
+        <button type="submit" class="send-btn">Send Private Feedback</button>
+      </form>
+    </div>
+
+    <div class="thankyou" id="thankYouGoogle">
+      <div class="icon">🙏</div>
+      <h2>Thank you so much!</h2>
+      <p>Your review means everything to us.<br>We'll see you next time!</p>
+    </div>
+
+    <div class="thankyou" id="thankYouFeedback">
+      <div class="icon">💙</div>
+      <h2>We hear you.</h2>
+      <p>Your feedback was sent directly to the owner.<br>We'll be in touch soon.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    Powered by <a href="https://repwing.com">RepWing</a>
+  </footer>
+
+  <script>
+    const GOOGLE_REVIEW_URL = 'https://search.google.com/local/writereview?placeid=PLACEHOLDER';
+
+    let selectedRating = 0;
+    const stars = document.querySelectorAll('.star');
+    const googleBtn = document.getElementById('googleBtn');
+    const feedbackForm = document.getElementById('feedbackForm');
+    const hiddenRating = document.getElementById('hiddenRating');
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.dataset.val);
+        hiddenRating.value = selectedRating;
+        updateStars(selectedRating);
+
+        if (selectedRating >= 4) {
+          googleBtn.classList.add('visible');
+          feedbackForm.classList.remove('visible');
+        } else {
+          feedbackForm.classList.add('visible');
+          googleBtn.classList.remove('visible');
+        }
+      });
+
+      star.addEventListener('mouseover', () => updateStars(parseInt(star.dataset.val)));
+      star.addEventListener('mouseout', () => updateStars(selectedRating));
+    });
+
+    function updateStars(val) {
+      stars.forEach(s => {
+        s.classList.toggle('active', parseInt(s.dataset.val) <= val);
+      });
+    }
+
+    function goToGoogle() {
+      document.getElementById('ratingView').style.display = 'none';
+      document.getElementById('thankYouGoogle').classList.add('visible');
+      setTimeout(() => { window.location.href = GOOGLE_REVIEW_URL; }, 1800);
+    }
+
+    function handleFeedback(e) {
+      e.preventDefault();
+      fetch(e.target.action, {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: { 'Accept': 'application/json' }
+      }).then(res => {
+        if (res.ok) {
+          document.getElementById('ratingView').style.display = 'none';
+          document.getElementById('thankYouFeedback').classList.add('visible');
+        } else {
+          alert('Something went wrong. Please try again.');
+        }
+      }).catch(() => alert('Network error. Please try again.'));
+    }
+  </script>
+
+</body>
+</html>
