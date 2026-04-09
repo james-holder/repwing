@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RepWing — More 5-Star Reviews. Less Chasing.</title>
-  <meta name="description" content="RepWing automatically asks your customers for Google reviews after every visit — and quietly catches unhappy ones before they go public." />
+  <title>RepWing — More 5-Star Reviews. Never Miss a Customer.</title>
+  <meta name="description" content="RepWing helps barbershops get more Google reviews automatically and recover missed calls instantly — the all-in-one growth tool built for barbers." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -66,7 +66,7 @@
       font-size: 1.15rem;
       color: #a0a0b0;
       line-height: 1.7;
-      max-width: 560px;
+      max-width: 580px;
       margin: 0 auto 40px;
     }
 
@@ -105,10 +105,85 @@
     }
     .form-wrap button:hover { background: #5a52e0; }
     .form-wrap button:active { transform: scale(0.98); }
+
+    /* CHECKBOXES */
+    .interest-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .interest-wrap label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #c0c0d0;
+      cursor: pointer;
+    }
+    .interest-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #6c63ff;
+      cursor: pointer;
+    }
     .form-note {
       font-size: 0.8rem;
       color: #555;
       margin-bottom: 60px;
+    }
+
+    /* DIVIDER */
+    .section-divider {
+      text-align: center;
+      padding: 0 24px 20px;
+      color: #444;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* PRODUCT BLOCKS */
+    .product-block {
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+    .product-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .product-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-repwing {
+      background: rgba(108, 99, 255, 0.2);
+      color: #a89fff;
+      border: 1px solid rgba(108, 99, 255, 0.3);
+    }
+    .badge-ringback {
+      background: rgba(0, 200, 150, 0.15);
+      color: #00c896;
+      border: 1px solid rgba(0, 200, 150, 0.3);
+    }
+    .product-header h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .product-header p {
+      font-size: 0.95rem;
+      color: #888;
+      margin-top: 4px;
     }
 
     /* FEATURES */
@@ -117,9 +192,6 @@
       justify-content: center;
       gap: 24px;
       flex-wrap: wrap;
-      max-width: 900px;
-      margin: 0 auto 80px;
-      padding: 0 24px;
     }
     .feature {
       background: rgba(255,255,255,0.04);
@@ -130,6 +202,10 @@
       min-width: 240px;
       max-width: 280px;
       text-align: left;
+    }
+    .feature.ringback-feature {
+      border-color: rgba(0, 200, 150, 0.15);
+      background: rgba(0, 200, 150, 0.04);
     }
     .feature-icon {
       font-size: 2rem;
@@ -147,19 +223,38 @@
       line-height: 1.6;
     }
 
-    /* SOCIAL PROOF */
-    .proof {
+    /* BUNDLE CALLOUT */
+    .bundle {
+      max-width: 680px;
+      margin: 0 auto 80px;
+      padding: 40px 32px;
+      background: rgba(108, 99, 255, 0.08);
+      border: 1px solid rgba(108, 99, 255, 0.2);
+      border-radius: 20px;
       text-align: center;
-      padding: 0 24px 80px;
     }
-    .proof p {
+    .bundle h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .bundle p {
+      color: #888;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .bundle .price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #6c63ff;
+      margin: 16px 0 4px;
+    }
+    .bundle .price-note {
+      font-size: 0.8rem;
       color: #555;
-      font-size: 0.85rem;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
     }
-    .stars { font-size: 1.5rem; letter-spacing: 4px; }
 
     /* HOW IT WORKS */
     .how {
@@ -242,6 +337,7 @@
       .form-wrap input[type="email"] { width: 100%; }
       .form-wrap button { width: 100%; }
       .feature { max-width: 100%; }
+      .product-header { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -253,37 +349,99 @@
 
   <section class="hero">
     <div class="badge">Early Access — Free for 3 Months</div>
-    <h1>More <em>5-Star Reviews.</em><br>Less Chasing.</h1>
+    <h1>More <em>5-Star Reviews.</em><br>Never Miss a Customer.</h1>
     <p class="subheadline">
-      RepWing automatically asks your customers for Google reviews after every visit —
-      and quietly catches unhappy ones before they go public.
+      RepWing is the all-in-one growth toolkit built for barbershops. 
+      Automatically collect Google reviews after every cut — and instantly recover 
+      missed calls before customers go to your competitor.
     </p>
 
     <form class="form-wrap" action="https://formspree.io/f/xnjoqjdg" method="POST">
       <input type="email" name="email" placeholder="Your email address" required />
       <button type="submit">Get Early Access</button>
     </form>
+
+    <div class="interest-wrap">
+      <label>
+        <input type="checkbox" name="interest_reviews" value="yes" form="interest-form" checked />
+        I want more Google reviews (RepWing)
+      </label>
+      <label>
+        <input type="checkbox" name="interest_missed_calls" value="yes" form="interest-form" />
+        I want to recover missed calls (RingBack)
+      </label>
+    </div>
+
     <p class="form-note">Free for 3 months. No credit card. No contracts.</p>
   </section>
 
-  <section class="features">
-    <div class="feature">
-      <div class="feature-icon">📲</div>
-      <h3>Automated Requests</h3>
-      <p>Automatically send SMS or email review requests after every appointment or job. Set it once, let it run.</p>
+  <!-- REPWING SECTION -->
+  <div class="product-block">
+    <div class="product-header">
+      <div>
+        <span class="product-badge badge-repwing">RepWing</span>
+        <h2>More 5-Star Reviews. Less Chasing.</h2>
+        <p>Automatically send review requests after every appointment and route feedback the smart way.</p>
+      </div>
     </div>
-    <div class="feature">
-      <div class="feature-icon">🛡️</div>
-      <h3>Smart Review Routing</h3>
-      <p>Happy customers land on your Google review page. Unhappy ones send private feedback straight to you — before it goes public.</p>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📲</div>
+        <h3>Automated Requests</h3>
+        <p>Automatically send SMS or email review requests after every appointment. Set it once, let it run.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <h3>Smart Review Routing</h3>
+        <p>Happy customers land on your Google review page. Unhappy ones send private feedback straight to you — before it goes public.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔔</div>
+        <h3>Instant Alerts</h3>
+        <p>Get notified the moment a new review drops. Respond fast, protect your reputation, and stay ahead.</p>
+      </div>
     </div>
-    <div class="feature">
-      <div class="feature-icon">🔔</div>
-      <h3>Instant Alerts</h3>
-      <p>Get notified the moment a new review drops. Respond fast, protect your reputation, and stay on top of what customers are saying.</p>
-    </div>
-  </section>
+  </div>
 
+  <div class="section-divider">Also included in the bundle</div>
+
+  <!-- RINGBACK SECTION -->
+  <div class="product-block">
+    <div class="product-header">
+      <div>
+        <span class="product-badge badge-ringback">RingBack</span>
+        <h2>Never Lose a Customer to a Missed Call.</h2>
+        <p>When you're mid-cut and can't answer, RingBack texts the missed caller automatically — keeping them in your chair, not your competitor's.</p>
+      </div>
+    </div>
+    <div class="features">
+      <div class="feature ringback-feature">
+        <div class="feature-icon">📞</div>
+        <h3>Instant SMS Recovery</h3>
+        <p>Missed a call? Within seconds, the caller gets a text: "Sorry we missed you! Want to book?" — before they call the next shop.</p>
+      </div>
+      <div class="feature ringback-feature">
+        <div class="feature-icon">📅</div>
+        <h3>Booking Link Included</h3>
+        <p>Each recovery text includes your booking link so customers can schedule on the spot — no back-and-forth needed.</p>
+      </div>
+      <div class="feature ringback-feature">
+        <div class="feature-icon">💬</div>
+        <h3>Two-Way Texting</h3>
+        <p>Customers can reply directly to the text. You handle it when you're free — no missed opportunities, no awkward voicemails.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUNDLE CALLOUT -->
+  <div class="bundle" style="margin: 0 24px 80px; max-width: 680px; margin-left: auto; margin-right: auto;">
+    <h2>Bundle & Save</h2>
+    <p>Get both RepWing and RingBack together — reviews on autopilot and missed call recovery in one simple plan.</p>
+    <div class="price">$69<span style="font-size:1rem; color:#888;">/mo</span></div>
+    <p class="price-note">Or get RepWing alone from $49/mo · Free for 3 months during early access</p>
+  </div>
+
+  <!-- HOW IT WORKS -->
   <section class="how">
     <h2>How it works</h2>
     <div class="steps">
@@ -291,21 +449,28 @@
         <div class="step-num">1</div>
         <div class="step-text">
           <h4>Connect your business</h4>
-          <p>Sign up and link your Google Business Profile in one click. No API keys, no technical setup.</p>
+          <p>Sign up and link your Google Business Profile. No API keys, no technical setup — takes less than 5 minutes.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-text">
           <h4>Add your customers</h4>
-          <p>Upload a CSV or add customers manually. RepWing handles the rest automatically after each visit.</p>
+          <p>Upload a CSV or add customers manually. RepWing handles review requests automatically after each visit.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-text">
-          <h4>Watch the reviews roll in</h4>
-          <p>Customers get a friendly nudge. Happy ones go to Google. Unhappy ones come to you privately. Your rating climbs.</p>
+          <h4>Never miss a call again</h4>
+          <p>RingBack forwards to your existing number. If you don't pick up, the missed caller gets a text within seconds.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h4>Watch your rating climb</h4>
+          <p>Happy customers go to Google. Unhappy ones come to you privately. Missed calls turn into booked appointments.</p>
         </div>
       </div>
     </div>
@@ -313,7 +478,7 @@
 
   <section class="cta-bottom">
     <h2>Get in early. It's free.</h2>
-    <p>Join the waitlist and get 3 months free when we launch.</p>
+    <p>Join the waitlist and get 3 months free when we launch. No credit card required.</p>
     <form class="form-wrap" action="https://formspree.io/f/xnjoqjdg" method="POST">
       <input type="email" name="email" placeholder="Your email address" required />
       <button type="submit">Get Early Access</button>
